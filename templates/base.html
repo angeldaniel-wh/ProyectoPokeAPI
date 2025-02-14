@@ -1,0 +1,72 @@
+{% load static %}
+
+<html lang="es">
+<head>
+    {%  block extrastatic %}
+    {%  endblock %}
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <title>{%  block title %} Title {% endblock %}</title>
+</head>
+
+<body>
+
+<div class="container">
+{% block navbar %}
+    <div class="bs-docs-section clearfix">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bs-component">
+                 <nav class="navbar navbar-default">
+                     <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+
+                        </div>
+                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                         <ul class="nav navbar-nav navbar-right">
+                             <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Opciones<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                 <li><a href="#">Salir</a></li>
+                              </ul>
+                            </li>
+                         </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+              </div>
+          </div>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if message.tags %}
+                            {% if message.tags == 'error' %}
+                                <li {% if message.tags %} class="alert alert-danger"{% endif %} > {{ message }} </li>
+                            {% else %}
+                                <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} > {{ message }}</li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+      </div>
+
+   {% endblock %}
+</div>
+
+{% block content %}
+{% endblock %}
+
+{%  block extrajs %}
+{%  endblock %}
+
+</body>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="{%  static 'js/bootstrap.min.js'%}"></script>
+
+</html>

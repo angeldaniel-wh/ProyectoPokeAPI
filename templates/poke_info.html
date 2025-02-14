@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    App PokeAPI
+{% endblock %}
+
+
+{% block content %}
+    <div class="text-center">
+        <h1 >Proyecto PokeAPI
+            <small class="text-muted"> Pokemon </small>
+        </h1>
+        {% if pokemon %}
+            <h2 class="text-uppercase"> {{ pokemon.name }} {{ pokemon.id }}</h2>
+            <img class="center-block" src="{{ pokemon.imagen }}" alt="{{ pokemon.imagen }}" width="250">
+            <h3> <strong> Detalle de las características </strong> </h3>
+            <h3> Peso </h3>
+            {{ pokemon.peso }} Hectogramos
+            <h3> Altura </h3>
+            {{ pokemon.altura }} Decimetros
+            <h3> Tipo </h3>
+                {% for tipo in pokemon.types %}
+                     | <a href="{% url 'pokemon_type'  tipo.type.id_type %}"> {{ tipo.type.name }} </a> |
+                {% endfor %}
+            <h3> Habilidades </h3>
+            {% for habilidad in pokemon.habilidades %}
+               | {{ habilidad.ability.name }} |
+            {% endfor %}
+            <h3> Movimientos </h3>
+            {% for movimiento in pokemon.movimientos %}
+               | {{ movimiento.move.name }} |
+            {% endfor %}
+        {% else %}
+            <h2>No se encontró un pokemon con ese nombre</h2>
+            <a href="{% url 'index'%}"> Ir a Home </a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    App PokeAPI
+{% endblock %}
+
+
+{% block content %}
+
+    <h1 class="text-center"> Proyecto PokeAPI
+        <small class="text-muted"> Lista de pokemones</small>
+    </h1>
+
+    <div class="text-center">
+        <form action="{% url 'pokemon_name' %}" method="GET">
+            <input type="text" name="pokemon" placeholder="Ingresa el nombre del Pokémon">
+            <button type="submit" class="btn btn-info">Buscar</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="align text-center">
+        {% if url_previous %}
+            <a class="btn btn-primary" href="{{ url_previous }}"> Anterior </a>
+        {% endif %}
+        {% if url_next %}
+            <a class="btn btn-primary" href="{{ url_next }}"> Siguiente </a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row text-center border-primary">
+            {% if pokemones %}
+                {% for pokemon in pokemones %}
+                    <div class="col-xs-6 text-uppercase border-primary" style="display: flex; flex-direction: column; align-items: center;">
+                        <hr>
+                        <span alt="Nombre pokemon">{{ pokemon.name }} </span>
+                        <img src="{{ pokemon.image }}" alt="Sprite de Pokemon"  width="100">
+                        <a class="btn btn-primary" href="{% url 'pokemon' pokemon.id %}"> Ver pokemon </a>
+                    </div>
+                    <br>
+                {% endfor %}
+            {% else %}
+                <h2> No se encontraron pokemones </h2>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
